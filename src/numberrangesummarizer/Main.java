@@ -1,3 +1,5 @@
+package numberrangesummarizer;
+
 import java.util.*;
 
 public class Main implements NumberRangeSummarizer {
@@ -6,23 +8,29 @@ public class Main implements NumberRangeSummarizer {
         boolean completed = false;
 
         do{
-        try {
-            System.out.println("Enter a list of Values:");
-            Scanner Obj = new Scanner(System.in);
-            String input = Obj.nextLine();
+            try {
+                System.out.println("Enter a list of Values:");
+                Scanner Obj = new Scanner(System.in);
+                String input = Obj.nextLine();
 
-            NumberRangeSummarizer my_method = new Main();
-            Collection<Integer> output = my_method.collect(input);
-            String Result = my_method.summarizeCollection(output);
-            System.out.println(Result);
-            completed=true;
-        } catch (Exception e) {
-            System.out.println("Incorrect Input. Enter numbers separated by comma with no spaces and letters");
-        }
-    } while(completed==false);
+                NumberRangeSummarizer my_method = new Main();
+                Collection<Integer> output = my_method.collect(input);
+                String Result = my_method.summarizeCollection(output);
+                System.out.println(Result);
+                completed=true;
+                
+            }
+			/*
+			 * catch (NumberFormatException ex) { //Handle NumberFormat and NullPointer
+			 * exceptions here System.out.println("Empty"); }
+			 */
+            catch (Exception e) {
+                System.out.println("Incorrect Input. Enter numbers separated by comma with no spaces");
+            }
+        } while(completed==false);
     }// end of main method
 
-
+    
     // Get input and store in an ArrayList
     @Override
     public Collection<Integer> collect(String input) {
@@ -32,7 +40,7 @@ public class Main implements NumberRangeSummarizer {
         Arrays.sort(a);
         for(int s: a){
             if (!sorted.contains(s))
-            sorted.add(s);
+                sorted.add(s);
         }
 
         return sorted;
@@ -49,7 +57,7 @@ public class Main implements NumberRangeSummarizer {
         str= str.replaceAll("\\s+","");
 
         // Converts String to an Array by Separating the values by a comma
-       int[] a = Arrays.stream(str.split(",")).map(Integer::parseInt).mapToInt(i->i).toArray();
+        int[] a = Arrays.stream(str.split(",")).map(Integer::parseInt).mapToInt(i->i).toArray();
 
         int count=0;  // counter that keeps track of how many numbers are sequential
         int start=a[0]; // First value of a sequential pattern
@@ -73,7 +81,7 @@ public class Main implements NumberRangeSummarizer {
                     count=0;
                     temp = start+ "-"+ end;
                 }
-                finalstring= finalstring + temp+ ",";
+                finalstring= finalstring + temp+ ", ";
                 temp= "" +(a[i+1]);
             }
         }
